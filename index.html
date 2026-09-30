@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prime Nails</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        background-color: #f9c4d4;
+        color: #5c0210c9;
+        scroll-behavior: smooth;
+    }
+    header {
+        background-image:url("photo_2026-01-30_13-42-56.jpg") ;
+        background-size:100% 100%;
+        background-repeat: no-repeat;
+        padding: 0;
+        aspect-ratio: 16/9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 5em;
+        letter-spacing: 2px;
+        font-style: italic;
+        font-weight: 300;
+        letter-spacing: 3px;
+    }
+    nav {
+        position: sticky;
+        top: 0;
+        background: #350d29;
+        padding: 10px 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        text-align: center;
+        z-index: 100;
+    }
+    nav a {
+        margin: 0 30px;
+        text-decoration: none;
+        color: #f7bbff;
+        font-weight: bold;
+        font-size: 1em;
+        transition: color 0.3s;
+    }
+    nav a:hover { color: #572049; }
+    section {
+        max-width: 1000px;
+        margin: auto;
+        padding: 50px 20px;
+    }
+    section h2 {
+        text-align: center;
+        color: #3d0167;
+        margin-bottom: 35px;
+        font-size: 2.2em;
+        letter-spacing: 1px;
+    }
+    .services, .gallery, .contact {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+    .card {
+        background:#f787d7;
+        border-radius: 15px;
+        padding: 20px;
+        width: 240px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .card img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 12px;
+        transition: transform 0.3s;
+        cursor: pointer;
+    }
+    .card img:hover { transform: scale(1.1); }
+    .contact .card p, .contact .card a {
+        font-size: 1em;
+        margin: 8px 0;
+        color: #2a1a1a;
+    }
+    .contact .card a {
+        text-decoration: none;
+        color: #6a0dad;
+        transition: color 0.3s;
+    }
+    .contact .card a:hover { color: #8b4513; }
+    .book-now-container {
+        position: relative;
+        margin: 25px auto 0 auto;
+        width: 200px;
+        text-align: center;
+    }
+    .book-now {
+        display: block;
+        background: #6a0dad;
+        color: white;
+        font-size: 1.1em;
+        padding: 12px 0;
+        border-radius: 30px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+    }
+    .book-now:hover {
+        background: #8b4513;
+        transform: scale(1.05);
+    }
+    .book-options {
+        display: none;
+        position: absolute;
+        top: 55px;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        flex-direction: column;
+        z-index: 10;
+    }
+    .book-options a {
+        display: block;
+        padding: 12px 0;
+        text-decoration: none;
+        color: #6a0dad;
+        font-weight: bold;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.3s;
+    }
+    .book-options a:hover { background: #f5f1f0; }
+    footer {
+        text-align: center;
+        padding: 25px;
+        background: #2a1a1a;
+        color: white;
+        margin-top: 35px;
+        font-size: 0.85em;
+    }
+    @media (max-width: 768px) {
+        header h1 { font-size: 48px; }
+        section h2 { font-size: 28px; }
+        .card { width: 200px; padding: 18px; }
+        nav a { font-size: 0.95em; margin: 0 8px; }
+    }
+    @media (max-width: 480px) {
+        header h1 { font-size: 64px; }
+        section h2 { font-size: 36px; }
+        .card { width: 160px; padding: 15px; }
+        nav a { font-size: 0.9em; margin: 0 5px; }
+        .book-now-container { width: 160px; }
+    }
+    .login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f4ceac;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+  .login-door {
+  width: 300px;
+  padding: 40px 20px;
+  background: #603035f7;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  opacity: 1;
+  transform: scale(1);
+  transition: all 1s ease;
+}
+
+.login-door.open {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.login-door input {
+  width: 80%;
+  padding: 10px;
+  margin: 20px 0;
+  border: none;
+  border-radius: 5px;
+}
+
+.login-door button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 20px;
+  background: #f9c7a3;
+  color: white;
+  cursor: pointer;
+}
+#welcome {
+  position: fixed;
+  top: 0; left:0; width: 100%; height: 100%;
+  background: #faa59f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  color: #513015;
+  font-size: 32px;
+  z-index: 9999;
+}
+</style>
+</head>
+<body>  
+    <header>
+    <h1>Prime Nails</h1>
+</header>
+
+<nav>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<section id="services">
+    <h2>Our Services</h2>
+    <div class="services">
+        <div class="card"><h3>Gel Nails</h3></div>
+        <div class="card"><h3>Acrylic Nails</h3></div>
+        <div class="card"><h3>French Tips</h3></div>
+        <div class="card"><h3>Pedicure</h3></div>
+        <div class="card"><h3>makeup</h3></div>
+    </div>
+</section>
+
+<section id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery">
+        <div class="card"><img src="photo_2026-01-05_13-16-47.jpg" alt="Nail 1"></div>
+        <div class="card"><img src="new 5.jpg   " alt="Nail 2"></div>
+        <div class="card"><img src="photo_2026-01-05_13-16-52.jpg" alt="Nail 3"></div>
+        <div class="card"><img src="photo_2026-01-05_13-16-53.jpg" alt="Nail 4"></div>
+        <div class="card"><img src="photo_2026-01-05_13-16-55.jpg" alt="Nail 5"></div>
+        <div class="card"><img src="photo_2026-01-05_13-16-56.jpg" alt="Nail 7"></div>
+        <div class="card"><img src="photo_2026-01-05_13-31-55.jpg" alt="Nail 8"></div>
+        <div class="card"><img src="new 3.jpg" alt="Nail 9"></div>
+        <div class="card"><img src="photo_2026-01-05_13-31-58.jpg" alt="Nail 10"></div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact">
+        <div class="card">
+            <p>📞 Phone: +251980500505</p>
+            <p>📸 Instagram: <a href="https://instagram.com/prime_nails__" target="_blank">@prime_nails__</a></p>
+            <p>💬 Telegram: <a href="https://t.me/PrimexNail" target="_blank">@PrimexNail</a></p>
+
+            <div class="book-now-container">
+                <div class="book-now" onclick="toggleOptions()">Book Now</div>
+                <div class="book-options" id="bookOptions">
+                    <a href="https://wa.me/251980500505" target="_blank">WhatsApp</a>
+                    <a href="https://t.me/Primenails" target="_blank">Telegram</a>
+                    <a href="https://www.instagram.com/prime_nails__" target="_blank">Instagram DM</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    &copy; 2026 Prime Nails | Designed by Kidst 💅
+</footer>
+
+<script>
+    function toggleOptions() {
+        const options = document.getElementById('bookOptions');
+        if (options.style.display === 'flex') {
+            options.style.display = 'none';
+        } else {
+            options.style.display = 'flex';
+        }
+    }
+</script>
+<button onclick="showWelcome()">Enter</button>
+
+<div id="welcome" style="display:none; 
+                         position:fixed; 
+                         top:0; left:0; 
+                         width:100%; height:100%; 
+                         background:#f9c7a3; 
+                         display:flex; 
+                         justify-content:center; 
+                         align-items:center; 
+                         font-family:'Georgia', serif; 
+                         font-size: 100px;
+                         font-weight: bold;
+                         letter-spacing:2px;
+                         color:#653321; 
+                         font-size:40px;">
+  Welcome to Prime Nails 💅
+</div>
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-door" id="loginDoor">
+          <h2>Enter My Nail Studio 💅</h2>
+         <input type="text" placeholder="Your name" />
+        <button onclick="enterSite()">Enter</button>
+  </div>
+</div>
+<script>
+function showwelcom(){
+  const welcome = document.getElementById("welcome");
+  welcome.style.display = "flex";
+  
+  
+  setTimeout(() => {
+    welcome.style.display = "none";
+  }, 3000);
+}
+</script>
+<script>
+function enterSite() {
+  document.getElementById("loginDoor").classList.add("open");
+
+  setTimeout(() => {
+    document.getElementById("loginOverlay").style.display = "none";
+  }, 1200);
+}
+</script>
+<script>
+function enterSite() {
+  const overlay = document.getElementById("loginOverlay");
+  const welcome = document.getElementById("welcome");
+overlay.style.display = "none";
+welcome.style.display = "italic";
+  setTimeout(() => {
+    welcome.style.display = "none";
+  }, 3000);
+}
+</script>
+</body>
+</html>
